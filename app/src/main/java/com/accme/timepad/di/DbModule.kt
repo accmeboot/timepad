@@ -16,7 +16,7 @@ import javax.inject.Singleton
 object DbModule {
     @Singleton
     @Provides
-    fun provideTaskDai(appDatabase: AppDatabase): TaskDao = appDatabase.taskDao
+    fun provideTaskDao(appDatabase: AppDatabase): TaskDao = appDatabase.taskDao
 
     @Singleton
     @Provides

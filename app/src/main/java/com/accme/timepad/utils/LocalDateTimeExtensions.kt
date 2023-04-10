@@ -2,6 +2,7 @@ package com.accme.timepad.utils
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 fun LocalDateTime.isToday(): Boolean {
@@ -18,4 +19,8 @@ fun LocalDateTime.getNiceDate(): String {
 
 fun LocalDateTime.getNiceTime(): String {
     return this.format(DateTimeFormatter.ofPattern(Constants.TIME_FORMAT))
+}
+
+fun LocalTime.getNiceCountTime(): String {
+    return this.format(DateTimeFormatter.ofPattern(Constants.COUNT_TIMER_FORMAT))
 }

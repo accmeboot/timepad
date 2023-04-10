@@ -11,4 +11,9 @@
     <string name="pad_create_btn_label">Create</string>
     <string name="date_today">Today</string>
     <string name="date_tomorrow">Tomorrow</string>
+    <string name="home_no_tasks">
+        You have nothing to do,
+        add new tasks by pressing
+        plus icon at the bottom bar below
+    </string>
 </resources>

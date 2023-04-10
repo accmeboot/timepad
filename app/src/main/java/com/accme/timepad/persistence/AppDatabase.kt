@@ -3,7 +3,7 @@ package com.accme.timepad.persistence
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.accme.timepad.data.Task
+import com.accme.timepad.model.Task
 import com.accme.timepad.utils.Converters
 
 @Database(

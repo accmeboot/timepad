@@ -11,9 +11,18 @@ object Constants {
     )
 
     const val TIME_FORMAT = "HH:mm"
+    const val COUNT_TIMER_FORMAT = "HH:mm:ss"
     const val FULL_DATE_FORMAT = "E d, LLLL u $TIME_FORMAT"
 
     fun getRandomColor(): Color {
         return taskLogoColors.random()
+    }
+
+    enum class RootRoutes {
+        MAIN
+    }
+
+    enum class Routes {
+        TASK_DETAIL
     }
 }

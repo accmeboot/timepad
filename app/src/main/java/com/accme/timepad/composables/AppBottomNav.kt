@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -42,8 +41,7 @@ fun AppBottomNav(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             items(bottomNavScreens, key = { it.route }) { screen ->
-                val route = stringResource(id = screen.route)
-                val isCurrent = currentRoute == route
+                val isCurrent = currentRoute == screen.route
                 val painter = painterResource(id = if (isCurrent) screen.selectedIcon else screen.icon)
                 val isPad = screen.route == BottomNavScreens.Pad.route
 
@@ -57,14 +55,14 @@ fun AppBottomNav(
                         }
 
                         if (!isCurrent && !isPad) {
-                            navController.navigate(route)
+                            navController.navigate(route = screen.route)
                         }
                     }
                 ) {
                     Icon(
                         painter,
                         tint = if (isPad) Color.Unspecified else MaterialTheme.colors.onBackground,
-                        contentDescription = "Bottom navigation button with label $route"
+                        contentDescription = "Bottom navigation button with label ${screen.route}"
                     )
                 }
             }

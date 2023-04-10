@@ -1,6 +1,7 @@
 package com.accme.timepad.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
@@ -18,7 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.accme.timepad.data.Task
+import com.accme.timepad.model.Task
 import com.accme.timepad.utils.*
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -31,7 +32,8 @@ fun TaskRow(
         name = "Try KMM",
         duration = LocalTime.now(),
         date = LocalDateTime.now()
-    )
+    ),
+    onTaskClick: (Int) -> Unit = {}
 ) {
     val date =
         if (task.date.isToday())
@@ -50,7 +52,8 @@ fun TaskRow(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .clickable { onTaskClick(task.id) },
             verticalAlignment = Alignment.Top
         ) {
             Box(

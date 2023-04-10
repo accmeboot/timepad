@@ -1,4 +1,4 @@
-package com.accme.timepad.data
+package com.accme.timepad.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -14,14 +14,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.accme.timepad.R
 import com.accme.timepad.viewModels.TaskDetailViewModel
+import nl.dionsegijn.konfetti.compose.KonfettiView
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.emitter.Confetti
+import nl.dionsegijn.konfetti.core.emitter.Emitter
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun TaskDetails(
@@ -46,6 +53,7 @@ fun TaskDetails(
     LaunchedEffect(key1 = task != null) {
         isLoading = false
     }
+
 
     AnimatedVisibility(
         visible = !isLoading,
@@ -74,11 +82,23 @@ fun TaskDetails(
                     )
                 }
             ) {
+                KonfettiView(
+                    parties = listOf(
+                        Party(
+                            emitter = Emitter(duration = 2000, TimeUnit.MILLISECONDS).max(2000)
+                        )
+                    ),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Transparent)
+                        .zIndex(2f)
+                )
                 Column(
                     modifier = Modifier
                         .padding(it)
                         .padding(horizontal = 18.dp)
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .zIndex(1f),
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Spacer(modifier = Modifier.weight(1f))

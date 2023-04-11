@@ -5,19 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.accme.timepad.model.Task
 import com.accme.timepad.persistence.TaskRepository
-import com.accme.timepad.utils.TaskCountDown
-import com.accme.timepad.utils.getNiceCountTime
+import com.accme.timepad.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.time.LocalTime
 import javax.inject.Inject
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class TaskDetailViewModel @Inject constructor(private val repository: TaskRepository) : ViewModel() {
@@ -41,13 +35,8 @@ class TaskDetailViewModel @Inject constructor(private val repository: TaskReposi
 
     fun startCountDown() {
         task?.value?.duration?.let {
-            val hours = it.hour.hours
-            val minutes = it.minute.minutes
-
-            val duration = Duration.parseIsoString((hours + minutes).toIsoString())
-
             _countdown = TaskCountDown(
-                duration = duration.inWholeMilliseconds,
+                duration = it.toDuration().inWholeMilliseconds,
                 onFinished = { onCountDownFinished() },
                 onTicked = { remaining -> onCountDownTicked(remaining) }
             )
@@ -59,6 +48,7 @@ class TaskDetailViewModel @Inject constructor(private val repository: TaskReposi
 
     fun stopCountDown() {
         _countdown?.cancel()
+
         _countdown = null
         isCounting.value = false
 
@@ -72,9 +62,6 @@ class TaskDetailViewModel @Inject constructor(private val repository: TaskReposi
     }
 
     private fun onCountDownTicked(remaining: Long) {
-        val duration = Duration.parseIsoString((remaining.seconds).toIsoString())
-        val time = LocalTime.ofSecondOfDay(duration.inWholeSeconds)
-
-        currentCount.value = time.getNiceCountTime()
+        currentCount.value = remaining.toLocalTime().getNiceCountTime()
     }
 }
